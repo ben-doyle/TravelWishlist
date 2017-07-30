@@ -3,6 +3,9 @@ package com.codechallenge.model;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class LocationTest extends TestCase {
 
@@ -12,7 +15,7 @@ public class LocationTest extends TestCase {
     public void testGetName() {
         Location location = new Location("Berlin", "Benjamin", "The Great " +
                 "City");
-        Assert.assertEquals(location.getName(), "Berlin, Germany");
+        Assert.assertEquals("Berlin, Germany", location.getName());
     }
 
     /**
@@ -34,46 +37,53 @@ public class LocationTest extends TestCase {
         Assert.assertTrue(location.isPopular());
     }
 
-    public void testGetDescription() throws Exception {
+    /**
+     * Test getter for description is working.
+     */
+    public void testGetDescription() {
         Location location = new Location("Berlin", "Benjamin", "The Great " +
                 "City");
-        Assert.assertEquals(location.getDescription(), "The Great Citygit a");
+        Assert.assertEquals("The Great City", location.getDescription());
     }
 
-    public void testGetSlug() throws Exception {
-
+    /**
+     * Test slugify is working, and getter for slug is working.
+     */
+    public void testGetSlug() {
+        Location location = new Location("Berlin", "Benjamin", "The Great " +
+                "City");
+        Assert.assertEquals("berlin-germany", location.getSlug());
     }
 
-    public void testGetVoters() throws Exception {
-
+    /**
+     * Test get list of voters is working.
+     */
+    public void testGetVotersAndVoteCount() {
+        Location location = new Location("Berlin", "Benjamin", "The Great " +
+                "City");
+        location.addVoter("Benjamin");
+        List<String> voters = new ArrayList<>();
+        voters.add("Benjamin");
+        Assert.assertEquals(1, location.getVoteCount());
+        Assert.assertEquals(voters, location.getVoters());
+        location.addVoter("Emily");
+        voters.add("Emily");
+        Assert.assertEquals(2, location.getVoteCount());
+//        Assert.assertTrue(location.getVoters().equals(voters));
     }
 
-    public void testAddVoter() throws Exception {
-
+    /**
+     * Test the get suggested by method.
+     */
+    public void testGetSuggestedBy() {
+        Location location = new Location("Berlin", "Benjamin", "The Great " +
+                "City");
+        Assert.assertEquals("Benjamin", location.getSuggestedBy());
     }
 
-    public void testGetSuggestedBy() throws Exception {
-
+    public void testGetLattitudeAndLongitude() {
+        Location location = new Location("Berlin", "Benjamin", "The Great " +
+                "City");
+        Assert.assertEquals("52.52000659999999 13.404954", location.getLattitude() + " " + location.getLongitude());
     }
-
-    public void testGetLattitude() throws Exception {
-
-    }
-
-    public void testGetLongitude() throws Exception {
-
-    }
-
-    public void testGetVoteCount() throws Exception {
-
-    }
-
-    public void testEquals() throws Exception {
-
-    }
-
-    public void testHashCode() throws Exception {
-
-    }
-
 }
