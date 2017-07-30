@@ -22,12 +22,15 @@ Google maps API-KEY AIzaSyDNb9_4ZFwEFfovzr899TZXB16BtPS_xyo
 - It runs a abstract DAO, so has no connection to a database.
 
 ## Parts I missed, or can improve on:
+- I didn't get time to parse the input, and make sure it was ok. It gets taken in by the google API, and finds the closest match.
+- You aren't able to remove suggested locations from the list.
 - Add database connection to keep data persistent.
 - Make the design/css look better and more mobile friendly.
 - UI testing and unit testing, I have only done unit testing in pure java. Testing web applications and UI elements is definitely something I have to learn.
 - This is my first time using handlebars in a serious project, not sure if everthing I have done is correct. But I did learn a lot.
 - Have the browser find the users current location.
 - have the list of locations display in ordered list, or an a list that can be re-ordered on the fly (distance from location).
+- Notify users who have voted for a location once it becomes popular, I could have done this easily using flashmessage on a users next login. But flashmessage needs to be coded in a different way (inside the DAO/database).
 
 
 ---
