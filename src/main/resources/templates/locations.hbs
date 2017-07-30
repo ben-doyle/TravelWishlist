@@ -1,0 +1,19 @@
+{{#partial "content"}}
+    <h1> Current suggested travel locations:</h1>
+    <ul>
+        {{#each locations}}
+            <li>
+            <form action="/location/{{ slug }}/vote" method="post">
+                <a href="/location/{{ slug }}"> {{ name }}</a> ( {{ voteCount }} votes)<button>Vote</button>
+            </form>
+            </li>
+        {{/each}}
+    </ul>
+
+    <form action="/locations" method="post">
+        <input type="text" placeholder="Where would you like to travel to?" name="name">
+        <button>Suggest!</button>
+    </form>
+{{/partial}}
+
+{{> base.hbs}}

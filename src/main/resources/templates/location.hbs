@@ -1,0 +1,19 @@
+{{#partial "content"}}
+    <h1>{{ wishList.name }}</h1>
+    <h2>{{ wishList.voteCount }} Vote</h2>
+    <ul>
+        {{#each wishList.voters}}
+            <li>{{ this }}</li>
+        {{/each}}
+    </ul>
+    <form action="/location/{{ wishListIdea.slug }}/vote" method="post">
+        <button>Vote!</button>
+    </form>
+
+{{/partial}}
+
+{{#partial "name"}}
+    {{ wishListIdea.name }}
+{{/partial}}
+
+{{> base.hbs}}
