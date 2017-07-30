@@ -33,8 +33,9 @@ li:last-child{
     background-color: #fff;
     border-radius: 5px;
     margin: auto;
-    padding: 20px 40px 40px 40px;
+    padding: 20px 40px 40px;
     width: 80%;
+    text-align: center;
 }
 
 input{
@@ -62,6 +63,8 @@ button{
 
 #topHeader {
     font-family: 'Amatic SC', cursive;
+    font-size: 3em;
+    margin-top: 0;
 }
 
 /* Always set the map height explicitly to define the size of the div
@@ -98,6 +101,31 @@ button{
     display: none;
 }
 
+.popular {
+    background-color: #2c89ba;
+}
 
+@media only screen and (max-width: 500px) {
 
+    .topnav a {
+        font-size: 70%;
+    }
 
+    body {
+        margin:0;
+        padding-top: 10px;
+    }
+    .page {
+        width: 100%;
+        margin: 0;
+        padding: 2% 0 5%;
+    }
+
+    #topHeader {
+        margin: 0;
+    }
+
+    #map {
+        min-height: 300px;
+    }
+}

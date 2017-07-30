@@ -17,7 +17,9 @@
             });
         }
     </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNb9_4ZFwEFfovzr899TZXB16BtPS_xyo&callback=initMap" async defer></script>
     <h1>{{ locationIdea.name }}</h1>
+    <p><em>{{ locationIdea.description }}</em></p>
     <h2>{{ locationIdea.voteCount }} Vote</h2>
     <ul>
         {{#each locationIdea.voters}}

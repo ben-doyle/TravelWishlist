@@ -10,8 +10,9 @@
         {{/each}}
     </ul>
 
-    <form action="/locations" method="post">
-        <input type="text" placeholder="Where would you like to travel to?" name="name">
+    <form action="/wishlist" method="post">
+        <input type="text" placeholder="Location?" name="name">
+        <input type="text" placeholder="Description?" name="description">
         <button>Suggest!</button>
     </form>
 {{/partial}}

@@ -1,6 +1,7 @@
 package com.codechallenge;
 
 import com.codechallenge.model.*;
+
 import spark.ModelAndView;
 import spark.Request;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -15,9 +16,14 @@ public class WishList {
     private static final String FLASH_MESSAGE_KEY = "flash_message";
 
     public static void main(String[] args) {
-        port(8080); // Spark will run on port 8080
 
+        // Spark will run on port 8080
+        port(8080);
+
+        // Set static location for css/js
         staticFileLocation("/public");
+
+        // Setup the dao for data storage
         LocationDAO dao = new SimpleLocationDao();
 
         before(((request, response) -> {
@@ -27,6 +33,7 @@ public class WishList {
             }
         }));
 
+        // If user tries to access locations before login, throw an error
         before("/locations", (req, res) -> {
             if (req.attribute("username") == null) {
                 setFlashMessage(req, "Whoops, please sign in first!");
@@ -35,6 +42,7 @@ public class WishList {
             }
         });
 
+        // If user tries to access wishlist before login, throw an error
         before("/wishlist", (req, res) -> {
             if (req.attribute("username") == null) {
                 setFlashMessage(req, "Whoops, please sign in first!");
@@ -43,6 +51,7 @@ public class WishList {
             }
         });
 
+        // Main path for wishlist
         get("/", (req, res) -> {
             Map<String, String> model = new HashMap<>();
             model.put("username", req.attribute("username"));
@@ -51,12 +60,20 @@ public class WishList {
             return new ModelAndView(model,"index.hbs");
         }, new HandlebarsTemplateEngine());
 
+        // Clear the cookie to logout
+        get("/logout", (req, res) -> {
+            res.cookie("username", "");
+            res.redirect("/");
+            return null;
+        });
+
+        //Post method to sign in
         post("/sign-in", (req, res) -> {
             Map<String, String> model = new HashMap<>();
             String username = req.queryParams("username");
             res.cookie("username", username);
             model.put("username", username);
-            res.redirect("/locations");
+            res.redirect("/");
             return null;
         });
 
@@ -69,9 +86,21 @@ public class WishList {
 
         post("/locations", (req, res) -> {
             String name = req.queryParams("name");
-            Location locationIdea = new Location(name, req.attribute("username"));
+            String description = req.queryParams("description");
+            Location locationIdea = new Location(name, req.attribute("username"), description);
+            setFlashMessage(req, name + " has been added!");
             dao.add(locationIdea);
             res.redirect("/locations");
+            return null;
+        });
+
+        post("/wishlist", (req, res) -> {
+            String name = req.queryParams("name");
+            String description = req.queryParams("description");
+            Location locationIdea = new Location(name, req.attribute("username"), description);
+            setFlashMessage(req, name + " has been added!");
+            dao.add(locationIdea);
+            res.redirect("/wishlist");
             return null;
         });
 
@@ -100,6 +129,7 @@ public class WishList {
             return null;
         });
 
+        //Throw up a 404 if doesn't match current get.
         exception(NotFoundException.class, (exc, req, res) -> {
             res.status(404);
             HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
@@ -109,10 +139,16 @@ public class WishList {
         });
     }
 
+    /**
+     *  Create the flash message cookie.
+     */
     private static void setFlashMessage(Request req, String message) {
         req.session().attribute(FLASH_MESSAGE_KEY, message);
     }
 
+    /**
+     *  Get the flash message from the cookie.
+     */
     private static String getFlashMessage(Request req) {
         if (req.session(false) == null) {
             return null;
@@ -123,6 +159,9 @@ public class WishList {
         return (String) req.session().attribute(FLASH_MESSAGE_KEY);
     }
 
+    /**
+     *  Capture flash message for use.
+     */
     private static String captureFlashMessage(Request req) {
         String message = getFlashMessage(req);
         if (message != null) {

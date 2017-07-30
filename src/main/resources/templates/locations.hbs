@@ -2,18 +2,28 @@
     <h1> Current suggested travel locations:</h1>
     <ul>
         {{#each locations}}
-            <li>
-            <form action="/location/{{ slug }}/vote" method="post">
-                <a {{ popular }} href="/location/{{ slug }}"> {{ name }}</a> ( {{ voteCount }} votes)<button>Vote</button>
-            </form>
-            </li>
+            {{#if this.popular}}
+                <li>
+                    <form action="/location/{{ slug }}/vote" method="post">
+                        <a href="/location/{{ slug }}"> {{ name }}</a> ( {{ voteCount }} votes ) <em>Popular</em>
+                        <button>Vote</button>
+                    </form>
+                </li>
+            {{else}}
+                <li>
+                    <form action="/location/{{ slug }}/vote" method="post">
+                        <a href="/location/{{ slug }}"> {{ name }}</a> ( {{ voteCount }} votes)
+                        <button>Vote</button>
+                    </form>
+                </li>
+            {{/if}}
         {{/each}}
     </ul>
 
     <form action="/locations" method="post">
-        <input type="text" placeholder="Where would you like to travel to?" name="name">
+        <input type="text" placeholder="Location?" name="name">
+        <input type="text" placeholder="Description?" name="description">
         <button>Suggest!</button>
     </form>
 {{/partial}}
-
 {{> base.hbs}}

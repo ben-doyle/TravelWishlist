@@ -12,4 +12,5 @@ public interface LocationDAO {
     List<Location> findUserLocations(String user);
 
     String getLocations();
+
 }

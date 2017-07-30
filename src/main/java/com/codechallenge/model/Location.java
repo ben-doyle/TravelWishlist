@@ -17,14 +17,17 @@ public class Location {
     private static final String API_KEY = "AIzaSyDNb9_4ZFwEFfovzr899TZXB16BtPS_xyo";
     private String name;
     private String suggestedBy;
+    private String description;
     private Double lattitude;
     private Double longitude;
     private String slug;
     private Set<String> voters;
+    private boolean popular = false;
 
-    public Location(String locationEntered, String suggestedBy) {
+    public Location(String locationEntered, String suggestedBy, String description) {
         voters = new HashSet<>();
         this.suggestedBy = suggestedBy;
+        this.description = description;
         this.setLocationAndName(locationEntered);
         try {
             Slugify slugify = new Slugify();
@@ -42,6 +45,14 @@ public class Location {
         return suggestedBy;
     }
 
+    public Boolean isPopular() {
+        return popular;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     public String getSlug() {
         return slug;
     }
@@ -51,6 +62,9 @@ public class Location {
     }
 
     public boolean addVoter(String voterUserName) {
+        if (voters.size() >= 4) {
+            this.popular = true;
+        }
         return voters.add(voterUserName);
     }
 
@@ -69,7 +83,6 @@ public class Location {
     public int getVoteCount() {
         return voters.size();
     }
-
 
     private void setLocationAndName(String locationEntered) {
         GeoApiContext context = new GeoApiContext.Builder()

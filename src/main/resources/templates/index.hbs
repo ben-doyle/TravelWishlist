@@ -7,7 +7,7 @@
             ];
             function initMap() {
                 map = new google.maps.Map(document.getElementById('map'), {
-                    center: {lat: -34.397, lng: 150.644},
+                    center: {lat: 23.268494, lng: 75.196087},
                     zoom: 2
                 });
                 var marker, i;
@@ -20,14 +20,20 @@
                 }
             }
         </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNb9_4ZFwEFfovzr899TZXB16BtPS_xyo&callback=initMap"
+                async defer></script>
         <div id="map"></div>
         <h1>Welcome {{ username }}!</h1>
 
-        <p>View <a href="/locations">View all suggested travel locations</a></p>
+        <p><a href="/locations">View all suggested travel locations</a></p>
     {{ else }}
-        <h1 class="topHeader">Travel Wish List</h1>
-        <form action="/sign-in" method="post">
+        <style>
+            .topnav {
+                display: none;
+            }
+        </style>
 
+        <form action="/sign-in" method="post">
             <input type="text" placeholder="What's your username?" name="username">
             <button>Sign in</button>
         </form>
