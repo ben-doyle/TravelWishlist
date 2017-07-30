@@ -5,8 +5,11 @@
     <meta charset="UTF-8">
     <title>{{#block "Title"}}Travel WishList{{/block}}</title>
     <link rel="stylesheet" href="/css/main.css">
+    <script type="text/javascript" src="/js/main.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNb9_4ZFwEFfovzr899TZXB16BtPS_xyo&callback=initMap" async defer></script>
 </head>
 <body>
+    <div id="map"></div>
     <div class="page">
     {{#if flashMessage}}
         <p id="flash-message">{{ flashMessage }}</p>

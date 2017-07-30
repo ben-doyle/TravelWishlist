@@ -16,7 +16,7 @@ public class WishList {
 
     public static void main(String[] args) {
         staticFileLocation("/public");
-        WishListDAO dao = new SimpleWishListDao();
+        LocationDAO dao = new SimpleLocationDao();
 
         before(((request, response) -> {
             if(request.cookie("username") != null) {
@@ -58,7 +58,7 @@ public class WishList {
 
         post("/locations", (req, res) -> {
             String name = req.queryParams("name");
-            WishListIdea locationIdea = new WishListIdea(name, req.attribute("username"));
+            Location locationIdea = new Location(name, req.attribute("username"));
             dao.add(locationIdea);
             res.redirect("/locations");
             return null;
@@ -71,7 +71,7 @@ public class WishList {
         }, new HandlebarsTemplateEngine());
 
         post("/location/:slug/vote", (req, res) -> {
-            WishListIdea locationIdea = dao.findBySlug(req.params("slug"));
+            Location locationIdea = dao.findBySlug(req.params("slug"));
             boolean added = locationIdea.addVoter(req.attribute("username"));
             if (added) {
                 setFlashMessage(req, "Thanks for your vote!");
