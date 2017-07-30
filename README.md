@@ -18,6 +18,7 @@ Google maps API-KEY AIzaSyDNb9_4ZFwEFfovzr899TZXB16BtPS_xyo
 - google maps java api for locations/names.
 - Maps functionality using google maps java api.
 - Using slugify for URI's.
+- Junit testing, only of the DAO and the POJO for location.
 - It runs a abstract DAO, so has no connection to a database.
 
 ## Parts I missed, or can improve on:
