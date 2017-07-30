@@ -1,10 +1,12 @@
 {{#partial "content"}}
     {{#if username }}
+        <script type="text/javascript" src="/js/main.js"></script>
+        <div id="map"></div>
         <h1>Welcome {{ username }}!</h1>
 
         <p>View <a href="/locations">View all suggested travel locations</a></p>
     {{ else }}
-        <h1>Travel destination Voting</h1>
+        <h1>Travel Wish List</h1>
         <form action="/sign-in" method="post">
 
             <input type="text" placeholder="What's your username?" name="username">

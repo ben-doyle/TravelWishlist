@@ -1,6 +1,11 @@
 package com.codechallenge.model;
 
 import com.github.slugify.Slugify;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.model.GeocodingResult;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -8,8 +13,13 @@ import java.util.List;
 import java.util.Set;
 
 public class Location {
+
+    private static final String API_KEY = "AIzaSyDNb9_4ZFwEFfovzr899TZXB16BtPS_xyo";
     private String name;
+
     private String suggestedBy;
+    private Double lattitude;
+    private Double longitude;
     private String slug;
     private Set<String> voters;
 
@@ -17,6 +27,7 @@ public class Location {
         voters = new HashSet<>();
         this.name = name;
         this.suggestedBy = company;
+        this.setLocation(name);
         try {
             Slugify slugify = new Slugify();
             slug = slugify.slugify(name);
@@ -45,8 +56,32 @@ public class Location {
         return voters.add(voterUserName);
     }
 
+    public Double getLattitude() {
+        return lattitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
     public int getVoteCount() {
         return voters.size();
+    }
+
+    public void setLocation(String name) {
+        GeoApiContext context = new GeoApiContext.Builder()
+                .apiKey(API_KEY)
+                .build();
+        try {
+            GeocodingResult[] results = GeocodingApi.geocode(context,
+                    name).await();
+
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            this.lattitude = results[0].geometry.location.lat;
+            this.longitude = results[0].geometry.location.lng;
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
 
     @Override
