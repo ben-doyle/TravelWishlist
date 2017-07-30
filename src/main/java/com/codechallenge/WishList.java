@@ -77,6 +77,7 @@ public class WishList {
             return null;
         });
 
+        //List of all locatations
         get("/locations", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("locations", dao.findAll());
@@ -84,6 +85,7 @@ public class WishList {
             return new ModelAndView(model, "locations.hbs");
         }, new HandlebarsTemplateEngine());
 
+        // post for locations page for new location
         post("/locations", (req, res) -> {
             String name = req.queryParams("name");
             String description = req.queryParams("description");
@@ -94,6 +96,7 @@ public class WishList {
             return null;
         });
 
+        // post for wishlist page for new location
         post("/wishlist", (req, res) -> {
             String name = req.queryParams("name");
             String description = req.queryParams("description");
@@ -104,12 +107,14 @@ public class WishList {
             return null;
         });
 
+        // URI for each location
         get("/location/:slug", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("locationIdea", dao.findBySlug(req.params("slug")));
             return new ModelAndView(model, "location.hbs");
         }, new HandlebarsTemplateEngine());
 
+        // wishlist/page of users current votes
         get("/wishlist", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("locations", dao.findUserLocations(req.attribute("username")));
@@ -117,6 +122,7 @@ public class WishList {
             return new ModelAndView(model, "wishlist.hbs");
         }, new HandlebarsTemplateEngine());
 
+        // post/vote page
         post("/location/:slug/vote", (req, res) -> {
             Location locationIdea = dao.findBySlug(req.params("slug"));
             boolean added = locationIdea.addVoter(req.attribute("username"));

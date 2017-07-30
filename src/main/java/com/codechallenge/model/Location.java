@@ -37,12 +37,9 @@ public class Location {
         }
     }
 
+
     public String getName() {
         return name;
-    }
-
-    public String getCompany() {
-        return suggestedBy;
     }
 
     public Boolean isPopular() {
@@ -62,7 +59,7 @@ public class Location {
     }
 
     public boolean addVoter(String voterUserName) {
-        if (voters.size() >= 4) {
+        if (voters.size() == 4) {
             this.popular = true;
         }
         return voters.add(voterUserName);

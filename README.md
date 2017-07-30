@@ -4,23 +4,30 @@ Google maps API-KEY AIzaSyDNb9_4ZFwEFfovzr899TZXB16BtPS_xyo
 
 ## RUNNING:
 
-- Run `mvn clean install`
-- Run `mvn exec:exec`
+- **To run junit unit tests** run `mvn test`
+- **To build/compile:** Run `mvn clean install`
+- **To start the webserver:** Run `mvn exec:exec`
 - spark will start on port 8080, accessible via `http://localhost:8080/`
 
 ## Design
 
-- Using maven as a build tool
-- Using Spark for the web handling
-- Using Spark-Handlebars for templating 
-- Display using google maps javascript api
-- Maps functionality using google maps java api
-- Using slugify for URI's
-- It runs a DAO, so has no connection to a database.
+- Using maven as a build tool.
+- Using Spark for the web handling.
+- Using Spark-Handlebars for templating. 
+- Display using google maps javascript api.
+- google maps java api for locations/names.
+- Maps functionality using google maps java api.
+- Using slugify for URI's.
+- It runs a abstract DAO, so has no connection to a database.
 
-### Things to improve on:
+## Parts I missed, or can improve on:
 - Add database connection to keep data persistent.
-- Make the CSS nicer and more mobile friendly.
+- Make the design/css look better and more mobile friendly.
+- UI testing and unit testing, I have only done unit testing in pure java. Testing web applications and UI elements is definitely something I have to learn.
+- This is my first time using handlebars in a serious project, not sure if everthing I have done is correct. But I did learn a lot.
+- Have the browser find the users current location.
+- have the list of locations display in ordered list, or an a list that can be re-ordered on the fly (distance from location).
+
 
 ---
 
