@@ -27,4 +27,24 @@ public class SimpleLocationDao implements LocationDAO {
                 .findFirst()
                 .orElseThrow(NotFoundException::new);
     }
+
+    @Override
+    public List<Location> findUserLocations(String user) {
+        ArrayList<Location> result = new ArrayList<>();
+        for (Location l:locations) {
+            if (l.getSuggestedBy().equals(user)) {
+                result.add(l);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public String getLocations() {
+        String result = "";
+        for (Location l:locations) {
+           result += "[" + l.getLattitude() + "," + l.getLongitude() + "],";
+        }
+        return result;
+    }
 }

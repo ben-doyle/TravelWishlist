@@ -16,17 +16,16 @@ public class Location {
 
     private static final String API_KEY = "AIzaSyDNb9_4ZFwEFfovzr899TZXB16BtPS_xyo";
     private String name;
-
     private String suggestedBy;
     private Double lattitude;
     private Double longitude;
     private String slug;
     private Set<String> voters;
 
-    public Location(String name, String company) {
+    public Location(String name, String suggestedBy) {
         voters = new HashSet<>();
         this.name = name;
-        this.suggestedBy = company;
+        this.suggestedBy = suggestedBy;
         this.setLocation(name);
         try {
             Slugify slugify = new Slugify();
@@ -54,6 +53,10 @@ public class Location {
 
     public boolean addVoter(String voterUserName) {
         return voters.add(voterUserName);
+    }
+
+    public String getSuggestedBy() {
+        return suggestedBy;
     }
 
     public Double getLattitude() {

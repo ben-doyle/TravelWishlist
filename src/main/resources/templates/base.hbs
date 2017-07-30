@@ -5,19 +5,22 @@
         <meta charset="UTF-8">
         <title>{{#block "Title"}}Travel WishList{{/block}}</title>
         <link rel="stylesheet" href="/css/main.css">
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNb9_4ZFwEFfovzr899TZXB16BtPS_xyo&callback=initMap"
-                async defer></script>
+        <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNb9_4ZFwEFfovzr899TZXB16BtPS_xyo&callback=initMap" async defer></script>
+        <script>function initMap(){}</script>
     </head>
     <body>
 
     <div class="topnav" id="myTopnav">
         <a href="/">Home</a>
         <a href="locations">Locations</a>
+        <a href="wishlist">My Wish List</a>
     </div>
     <div class="page">
     {{#if flashMessage}}
             <p id="flash-message">{{ flashMessage }}</p>
     {{/if}}
+<h1 id="topHeader" >TRAVEL WISH LIST</h1>
 {{/block}}
 
 {{#block "content"}}{{/block}}

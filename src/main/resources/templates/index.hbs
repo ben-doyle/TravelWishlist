@@ -1,12 +1,31 @@
 {{#partial "content"}}
     {{#if username }}
-        <script type="text/javascript" src="/js/main.js"></script>
+        <script>
+            var map;
+            var locations = [
+                {{ pins }}
+            ];
+            function initMap() {
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: -34.397, lng: 150.644},
+                    zoom: 2
+                });
+                var marker, i;
+
+                for (i = 0; i < locations.length; i++) {
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(locations[i][0], locations[i][1]),
+                        map: map
+                    });
+                }
+            }
+        </script>
         <div id="map"></div>
         <h1>Welcome {{ username }}!</h1>
 
         <p>View <a href="/locations">View all suggested travel locations</a></p>
     {{ else }}
-        <h1>Travel Wish List</h1>
+        <h1 class="topHeader">Travel Wish List</h1>
         <form action="/sign-in" method="post">
 
             <input type="text" placeholder="What's your username?" name="username">

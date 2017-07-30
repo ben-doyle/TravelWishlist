@@ -32,7 +32,7 @@ li:last-child{
 .page{
     background-color: #fff;
     border-radius: 5px;
-    margin: 40px auto;
+    margin: auto;
     padding: 20px 40px 40px 40px;
     width: 80%;
 }
@@ -58,6 +58,10 @@ button{
     display: block;
     font-size: 14px;
     padding: 10px 20px;
+}
+
+#topHeader {
+    font-family: 'Amatic SC', cursive;
 }
 
 /* Always set the map height explicitly to define the size of the div
@@ -93,3 +97,7 @@ button{
 .topnav .icon {
     display: none;
 }
+
+
+
+

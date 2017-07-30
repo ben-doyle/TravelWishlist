@@ -15,6 +15,8 @@ public class WishList {
     private static final String FLASH_MESSAGE_KEY = "flash_message";
 
     public static void main(String[] args) {
+        port(8080); // Spark will run on port 8080
+
         staticFileLocation("/public");
         LocationDAO dao = new SimpleLocationDao();
 
@@ -33,10 +35,19 @@ public class WishList {
             }
         });
 
+        before("/wishlist", (req, res) -> {
+            if (req.attribute("username") == null) {
+                setFlashMessage(req, "Whoops, please sign in first!");
+                res.redirect("/");
+                halt();
+            }
+        });
+
         get("/", (req, res) -> {
             Map<String, String> model = new HashMap<>();
             model.put("username", req.attribute("username"));
             model.put("flashMessage", captureFlashMessage(req));
+            model.put("pins", dao.getLocations());
             return new ModelAndView(model,"index.hbs");
         }, new HandlebarsTemplateEngine());
 
@@ -68,6 +79,13 @@ public class WishList {
             Map<String, Object> model = new HashMap<>();
             model.put("locationIdea", dao.findBySlug(req.params("slug")));
             return new ModelAndView(model, "location.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        get("/wishlist", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            model.put("locations", dao.findUserLocations(req.attribute("username")));
+            model.put("flashMessage", captureFlashMessage(req));
+            return new ModelAndView(model, "wishlist.hbs");
         }, new HandlebarsTemplateEngine());
 
         post("/location/:slug/vote", (req, res) -> {

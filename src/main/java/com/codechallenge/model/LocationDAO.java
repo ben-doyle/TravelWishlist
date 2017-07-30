@@ -8,4 +8,8 @@ public interface LocationDAO {
     List<Location> findAll();
 
     Location findBySlug(String slug);
+
+    List<Location> findUserLocations(String user);
+
+    String getLocations();
 }
