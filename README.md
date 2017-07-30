@@ -1,12 +1,14 @@
 # Travel Wish List
 
+API-KEY AIzaSyDNb9_4ZFwEFfovzr899TZXB16BtPS_xyo
+
 - Using maven
 - Using Spark
 - Using Spark-Handlebars
-- Display using google maps javascript
-- Uses cookies for authentication
-
-API-KEY AIzaSyDNb9_4ZFwEFfovzr899TZXB16BtPS_xyo
+- Display using google maps javascript api
+- Maps functionality using google maps java api
+- Uses cookies for authentication (can switch to database)
+- 
 
 ## RUNNING:
 

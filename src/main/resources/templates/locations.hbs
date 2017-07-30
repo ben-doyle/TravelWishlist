@@ -4,7 +4,7 @@
         {{#each locations}}
             <li>
             <form action="/location/{{ slug }}/vote" method="post">
-                <a href="/location/{{ slug }}"> {{ name }}</a> ( {{ voteCount }} votes)<button>Vote</button>
+                <a {{ popular }} href="/location/{{ slug }}"> {{ name }}</a> ( {{ voteCount }} votes)<button>Vote</button>
             </form>
             </li>
         {{/each}}

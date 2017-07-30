@@ -22,11 +22,10 @@ public class Location {
     private String slug;
     private Set<String> voters;
 
-    public Location(String name, String suggestedBy) {
+    public Location(String locationEntered, String suggestedBy) {
         voters = new HashSet<>();
-        this.name = name;
         this.suggestedBy = suggestedBy;
-        this.setLocation(name);
+        this.setLocationAndName(locationEntered);
         try {
             Slugify slugify = new Slugify();
             slug = slugify.slugify(name);
@@ -71,15 +70,17 @@ public class Location {
         return voters.size();
     }
 
-    public void setLocation(String name) {
+
+    private void setLocationAndName(String locationEntered) {
         GeoApiContext context = new GeoApiContext.Builder()
                 .apiKey(API_KEY)
                 .build();
         try {
             GeocodingResult[] results = GeocodingApi.geocode(context,
-                    name).await();
+                    locationEntered).await();
 
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            this.name = results[0].formattedAddress;
             this.lattitude = results[0].geometry.location.lat;
             this.longitude = results[0].geometry.location.lng;
         } catch (Exception e) {
